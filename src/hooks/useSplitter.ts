@@ -3,13 +3,13 @@ import { useCallback, useState } from "react";
 type useSplitterReturns = {
   explorerWidth: number;
   handleExplorerMouseDown: (event: React.MouseEvent) => void;
-  handleDragable: (event: React.MouseEvent) => void;
+  handleDraggable: (event: React.MouseEvent) => void;
 };
 
 export function useSplitter(): useSplitterReturns {
   const [explorerWidth, setExplorerWidth] = useState<number>(300);
 
-  const handleDragable = useCallback((event: React.MouseEvent) => {
+  const handleDraggable = useCallback((event: React.MouseEvent) => {
     event.preventDefault();
   }, []);
 
@@ -30,5 +30,5 @@ export function useSplitter(): useSplitterReturns {
     document.removeEventListener("mouseup", handleExplorerMouseUp);
   }, []);
 
-  return { explorerWidth, handleExplorerMouseDown, handleDragable };
+  return { explorerWidth, handleExplorerMouseDown, handleDraggable };
 }
