@@ -10,7 +10,7 @@ function App() {
       {/* サイドバー */}
       <div className="w-[40px] h-full border-l-1"></div>
 
-      {/* エクスプローラー */}
+      {/* エクスプローラーなどを入れる部分 */}
       <div className={"h-full relative border-l-1"} style={{ width: `${explorerWidth}px` }}>
         {/* splitter */}
         <div
