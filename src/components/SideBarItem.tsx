@@ -1,30 +1,17 @@
-import { IconType } from "react-icons";
+import { IconType } from "react-icons"
+import { Explorer } from "./explorer/Explorer"
+import { FaFolderTree } from "react-icons/fa6";
 
-type SideBarItemProps = {
-  id: string;
-  SidebarIcon: IconType;
-  selectedItem: string;
-  setSelectedItem: (selfId: string) => void;
-};
-
-export type SideBarItemData = {
-  id: string;
-  SidebarIcon: IconType;
-  eventHandler: () => void;
-};
-
-export function SideBarItem({ id, SidebarIcon, selectedItem, setSelectedItem }: SideBarItemProps) {
-  return (
-    <label key={id}>
-      <input
-        className="hidden"
-        type="radio"
-        value={id}
-        checked={selectedItem === id}
-        onChange={() => setSelectedItem(id)}
-        name="side-items"
-      />
-      <SidebarIcon />
-    </label>
-  );
+export type sideMenuItem = {
+  id: string
+  icon: IconType
+  component: JSX.Element
 }
+
+export const sideBarItems: sideMenuItem[] = [
+  {
+    id: "explorer",
+    icon: FaFolderTree,
+    component: <Explorer />
+  }
+]
