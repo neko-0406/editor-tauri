@@ -33,7 +33,6 @@ function App() {
         {/* エクスプローラーなどを入れる部分 */}
         <div className={"h-full flex flex-col relative border-l-1"} style={{ width: `${explorerWidth}px` }}>
           <div className="w-full h-full">
-            {/* <Explorer /> */}
             {selectedSideBarItemId ? sideBarItems.find(item => item.id === selectedSideBarItemId)?.component: null}
           </div>
           {/* splitter */}
