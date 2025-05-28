@@ -2,7 +2,7 @@ import "./App.css";
 import { useSplitter } from "./hooks/useSplitter";
 
 function App() {
-  const { explorerWidth, handleExplorerMouseDown, handleDragable } = useSplitter();
+  const { explorerWidth, handleExplorerMouseDown, handleDraggable } = useSplitter();
 
   return (
     // 全体
@@ -16,7 +16,7 @@ function App() {
         <div
           className="h-full absolute right-0 w-[5px] hover:bg-blue-300"
           onMouseDown={handleExplorerMouseDown}
-          onDrag={handleDragable}
+          onDrag={handleDraggable}
         />
       </div>
 
