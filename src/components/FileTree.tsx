@@ -43,22 +43,23 @@ function FolderItem({ fileItem, level }: TreeItemProps) {
         </div>
         <ul className="ml-2 pl-3 border-l ">
           {isOpen &&
-            [...(fileItem.branch || [])].sort((a, b) => {
-              if (a.is_dir && !b.is_dir) {
-                return -1;
-              }
-              if (!a.is_dir && b.is_dir) {
-                return 1;
-              }
-              return 0
-            })
-            .map((item) =>
-              item.is_dir ? (
-                <FolderItem fileItem={item} level={level + 1} key={item.path} />
-              ) : (
-                <FileItem fileItem={item} level={level + 1} key={item.path} />
-              ),
-            )}
+            [...(fileItem.branch || [])]
+              .sort((a, b) => {
+                if (a.is_dir && !b.is_dir) {
+                  return -1;
+                }
+                if (!a.is_dir && b.is_dir) {
+                  return 1;
+                }
+                return 0;
+              })
+              .map((item) =>
+                item.is_dir ? (
+                  <FolderItem fileItem={item} level={level + 1} key={item.path} />
+                ) : (
+                  <FileItem fileItem={item} level={level + 1} key={item.path} />
+                ),
+              )}
         </ul>
       </div>
     </li>
