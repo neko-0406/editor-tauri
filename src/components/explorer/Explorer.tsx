@@ -16,5 +16,5 @@ export function Explorer() {
     fetchTree();
   }, []);
 
-  return <>{tree ? <Tree fileObject={tree} /> : null}</>;
+  return <>{tree ? <Tree fileObject={tree} /> : <div>フォルダーが選択されていません</div>}</>;
 }
