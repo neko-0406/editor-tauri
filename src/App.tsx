@@ -3,37 +3,47 @@ import "./App.css";
 import { sideBarItems } from "./components/SideBarItem";
 import { SettingProvider } from "./components/setting/SettingProvider";
 import { useSplitter } from "./hooks/useSplitter";
+import { useDialogDisplay } from "./hooks/useDialogDisplay";
+import { Setting } from "./components/setting/Setting";
+import { FaGear } from "react-icons/fa6";
 
 function App() {
   const { explorerWidth, handleExplorerMouseDown, handleDraggable } = useSplitter();
-  const [selectedSideBarItemId, setSelectedSideBarItemId] = useState<string | null>(null)
+  const { isDialogOpen, setIsDialogOpen, openDialog } = useDialogDisplay();
+  const [selectedSideBarItemId, setSelectedSideBarItemId] = useState<string | null>(null);
 
   const handleClick = useCallback((id: string) => {
-    setSelectedSideBarItemId(id)
-  }, [])
+    setSelectedSideBarItemId(id);
+  }, []);
 
   return (
     // 全体
     <SettingProvider>
-      <div className="w-full h-full flex flex-row">
+      <div className="w-full h-full flex flex-row relative">
+        {isDialogOpen ? <Setting isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} /> : null}
         {/* サイドバー */}
         <div className="w-[50px] h-full border-l-1 flex flex-col">
           {/* ファイルツリー、検索などのアイコン用 */}
           <div className="flex flex-col flex-2 items-center first:mt-4">
-            {sideBarItems?.map(item => {
+            {sideBarItems?.map((item) => {
               return (
-                <button type="button" className="w-[30px] h-[30px] p-" key={item.id} onClick={() => handleClick(item.id)}><item.icon  size={25} /></button>
-              )
+                <button type="button" className="w-[30px] h-[30px]" key={item.id} onClick={() => handleClick(item.id)}>
+                  <item.icon size={25} />
+                </button>
+              );
             })}
           </div>
           {/* 設定関連のアイコン用 */}
-          <div className="flex flex-col-reverse flex-1"></div>
+          <div className="flex flex-col-reverse flex-2 items-center mb-4">
+            <button type="button" className="w-[30px] h-[30px]" onClick={openDialog}>
+              <FaGear size={25} />
+            </button>
+          </div>
         </div>
-
         {/* エクスプローラーなどを入れる部分 */}
         <div className={"h-full flex flex-col relative border-l-1"} style={{ width: `${explorerWidth}px` }}>
           <div className="w-full h-full">
-            {selectedSideBarItemId ? sideBarItems.find(item => item.id === selectedSideBarItemId)?.component: null}
+            {selectedSideBarItemId ? sideBarItems.find((item) => item.id === selectedSideBarItemId)?.component : null}
           </div>
           {/* splitter */}
           <div
@@ -42,7 +52,6 @@ function App() {
             onDrag={handleDraggable}
           />
         </div>
-
         {/* エディター（タブ） */}
         <div className="flex-1 h-full border-l-1"></div>
       </div>
