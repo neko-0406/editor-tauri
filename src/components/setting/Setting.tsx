@@ -12,16 +12,16 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
   const data = ["system", "light", "dark"];
 
   return (
-    <div className="w-full h-full p-4 absolute z-1">
+    <div className="absolute z-1 h-full w-full p-4">
       {isDialogOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-96 border-black border-1">
-            <h2 className="text-xl font-semibold mb-4">設定</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent">
+          <div className="w-96 rounded-lg border-1 border-black bg-white p-6 shadow-xl">
+            <h2 className="mb-4 text-xl font-semibold">設定</h2>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">テーマ</label>
+              <label className="mb-1 block text-sm font-medium">テーマ</label>
               <select
-                className="w-full p-2 border rounded-md"
+                className="w-full rounded-md border p-2"
                 value={theme}
                 onChange={(e) => setSetting({ ...setting, theme: e.target.value })}
               >
@@ -34,18 +34,18 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">ワークスペースパス</label>
+              <label className="mb-1 block text-sm font-medium">ワークスペースパス</label>
               <input
                 type="text"
-                className="w-full p-2 border rounded-md"
+                className="w-full rounded-md border p-2"
                 value={workspacePath}
                 onChange={(e) => setSetting({ ...setting, workspacePath: e.target.value })}
               />
             </div>
 
-            <div className="flex justify-end gap-2 mt-6">
+            <div className="mt-6 flex justify-end gap-2">
               <button
-                className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                className="rounded-md bg-gray-200 px-4 py-2 hover:bg-gray-300"
                 onClick={() => {
                   setIsDialogOpen(false);
                 }}
@@ -53,7 +53,7 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
                 キャンセル
               </button>
               <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                 onClick={() => {
                   setIsDialogOpen(false);
                 }}
@@ -65,7 +65,7 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
         </div>
       )}
 
-      <div className="rounded-lg shadow-xl bg-black"></div>
+      <div className="rounded-lg bg-black shadow-xl"></div>
     </div>
   );
 }
