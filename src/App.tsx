@@ -1,11 +1,13 @@
-import { useCallback, useState } from "react";
 import "./App.css";
-import { sideBarItems } from "./components/SideBarItem";
-import { SettingProvider } from "./components/setting/SettingProvider";
-import { useSplitter } from "./hooks/useSplitter";
-import { useDialogDisplay } from "./hooks/useDialogDisplay";
-import { Setting } from "./components/setting/Setting";
+
+import { useCallback, useState } from "react";
 import { FaGear } from "react-icons/fa6";
+
+import { Setting } from "./components/setting/Setting";
+import { SettingProvider } from "./components/setting/SettingProvider";
+import { sideBarItems } from "./components/SideBarItem";
+import { useDialogDisplay } from "./hooks/useDialogDisplay";
+import { useSplitter } from "./hooks/useSplitter";
 
 function App() {
   const { explorerWidth, handleExplorerMouseDown, handleDraggable } = useSplitter();
