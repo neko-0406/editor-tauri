@@ -1,4 +1,5 @@
 // import { BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
+import { SettingField } from "./SettingField";
 import { useSetting } from "./SettingProvider";
 
 type SettingProps = {
@@ -9,7 +10,11 @@ type SettingProps = {
 export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
   const { setting, setSetting } = useSetting();
   const { theme, workspacePath, googleAuth, geminiApiKey } = setting;
-  const themeData = ["system", "light", "dark"];
+  const themeOptions = [
+    { value: "system", label: "システム" },
+    { value: "light", label: "ライト" },
+    { value: "dark", label: "ダーク" },
+  ];
 
   return (
     <div className="absolute z-1 h-full w-full p-4">
@@ -18,62 +23,37 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
           <div className="h-[80%] w-[80%] rounded-lg border-1 border-black bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-xl font-semibold">設定</h2>
 
-            <div className="mb-4 grid grid-cols-2">
-              <label className="mb-1 block text-base font-medium">テーマ</label>
-              <select
-                className="w-full rounded-md border p-2 text-base"
-                value={theme}
-                onChange={(e) => setSetting({ ...setting, theme: e.target.value })}
-              >
-                {themeData.map((themeOption) => (
-                  <option key={themeOption} value={themeOption}>
-                    {themeOption === "system" ? "システム" : themeOption === "light" ? "ライト" : "ダーク"}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <SettingField
+              label="テーマ"
+              value={theme}
+              onChange={(value) => setSetting({ ...setting, theme: value })}
+              type="select"
+              options={themeOptions}
+            />
 
-            <div className="mb-4 grid grid-cols-2">
-              <label className="mb-1 block text-base font-medium">ワークスペースパス</label>
-              <input
-                type="text"
-                className="w-full rounded-md border p-2 text-base"
-                value={workspacePath}
-                onChange={(e) => setSetting({ ...setting, workspacePath: e.target.value })}
-              />
-            </div>
+            <SettingField
+              label="ワークスペースパス"
+              value={workspacePath}
+              onChange={(value) => setSetting({ ...setting, workspacePath: value })}
+            />
 
-            <div className="mb-4 grid grid-cols-2">
-              <label className="mb-1 block text-base font-medium">Google Auth ClientID</label>
-              <input
-                type="text"
-                className="w-full rounded-md border p-2 text-base"
-                value={googleAuth.clientId}
-                onChange={(e) => setSetting({ ...setting, googleAuth: { ...googleAuth, clientId: e.target.value } })}
-              />
-            </div>
+            <SettingField
+              label="Google Auth ClientID"
+              value={googleAuth.clientId}
+              onChange={(value) => setSetting({ ...setting, googleAuth: { ...googleAuth, clientId: value } })}
+            />
 
-            <div className="mb-4 grid grid-cols-2">
-              <label className="mb-1 block text-base font-medium">Google Auth ClientSecret</label>
-              <input
-                type="text"
-                className="w-full rounded-md border p-2 text-base"
-                value={googleAuth.clientSecret}
-                onChange={(e) =>
-                  setSetting({ ...setting, googleAuth: { ...googleAuth, clientSecret: e.target.value } })
-                }
-              />
-            </div>
+            <SettingField
+              label="Google Auth ClientSecret"
+              value={googleAuth.clientSecret}
+              onChange={(value) => setSetting({ ...setting, googleAuth: { ...googleAuth, clientSecret: value } })}
+            />
 
-            <div className="mb-4 grid grid-cols-2">
-              <label className="mb-1 block text-base font-medium">Gemini API Key</label>
-              <input
-                type="text"
-                className="w-full rounded-md border p-2 text-base"
-                value={geminiApiKey}
-                onChange={(e) => setSetting({ ...setting, geminiApiKey: e.target.value })}
-              />
-            </div>
+            <SettingField
+              label="Gemini API Key"
+              value={geminiApiKey}
+              onChange={(value) => setSetting({ ...setting, geminiApiKey: value })}
+            />
 
             <div className="mt-6 flex justify-end gap-2">
               <button
