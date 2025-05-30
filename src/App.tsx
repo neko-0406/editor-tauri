@@ -3,6 +3,7 @@ import "./App.css";
 import { sideBarItems } from "./components/SideBarItem";
 import { SettingProvider } from "./components/setting/SettingProvider";
 import { useSplitter } from "./hooks/useSplitter";
+import { TabContainer } from "./components/EditorTab";
 
 function App() {
   const { explorerWidth, handleExplorerMouseDown, handleDraggable } = useSplitter();
@@ -51,7 +52,9 @@ function App() {
         </div>
 
         {/* エディター（タブ） */}
-        <div className="flex-1 h-full border-l-1"></div>
+        <div className="flex-1 h-full border-l-1">
+          <TabContainer />
+        </div>
       </div>
     </SettingProvider>
   );
