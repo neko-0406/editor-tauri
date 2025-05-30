@@ -6,11 +6,11 @@ import { useSplitter } from "./hooks/useSplitter";
 
 function App() {
   const { explorerWidth, handleExplorerMouseDown, handleDraggable } = useSplitter();
-  const [selectedSideBarItemId, setSelectedSideBarItemId] = useState<string | null>(null)
+  const [selectedSideBarItemId, setSelectedSideBarItemId] = useState<string | null>(null);
 
   const handleClick = useCallback((id: string) => {
-    setSelectedSideBarItemId(id)
-  }, [])
+    setSelectedSideBarItemId(id);
+  }, []);
 
   return (
     // 全体
@@ -20,10 +20,17 @@ function App() {
         <div className="w-[50px] h-full border-l-1 flex flex-col">
           {/* ファイルツリー、検索などのアイコン用 */}
           <div className="flex flex-col flex-2 items-center first:mt-4">
-            {sideBarItems?.map(item => {
+            {sideBarItems?.map((item) => {
               return (
-                <button type="button" className="w-[30px] h-[30px] p-" key={item.id} onClick={() => handleClick(item.id)}><item.icon  size={25} /></button>
-              )
+                <button
+                  type="button"
+                  className="w-[30px] h-[30px] p-"
+                  key={item.id}
+                  onClick={() => handleClick(item.id)}
+                >
+                  <item.icon size={25} />
+                </button>
+              );
             })}
           </div>
           {/* 設定関連のアイコン用 */}
@@ -33,7 +40,7 @@ function App() {
         {/* エクスプローラーなどを入れる部分 */}
         <div className={"h-full flex flex-col relative border-l-1"} style={{ width: `${explorerWidth}px` }}>
           <div className="w-full h-full">
-            {selectedSideBarItemId ? sideBarItems.find(item => item.id === selectedSideBarItemId)?.component: null}
+            {selectedSideBarItemId ? sideBarItems.find((item) => item.id === selectedSideBarItemId)?.component : null}
           </div>
           {/* splitter */}
           <div
