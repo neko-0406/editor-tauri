@@ -1,4 +1,5 @@
-// import { BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
+import { BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
+
 import { SettingField } from "./SettingField";
 import { useSetting } from "./SettingProvider";
 
@@ -67,6 +68,11 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
               <button
                 className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                 onClick={() => {
+                  const baseDir = BaseDirectory.AppData;
+                  console.log(setting);
+                  setSetting(setting);
+                  console.log(setting);
+                  writeTextFile("setting.json", JSON.stringify(setting, null, 2), { baseDir: baseDir });
                   setIsDialogOpen(false);
                 }}
               >
