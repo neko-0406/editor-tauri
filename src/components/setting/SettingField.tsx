@@ -1,8 +1,10 @@
+import { FaFolder } from "react-icons/fa6";
+
 type SettingFieldProps = {
   label: string;
   value: string;
   onChange: (value: string) => void;
-  type?: "text" | "select";
+  type?: "text" | "select" | "folder";
   options?: { value: string; label: string }[];
 };
 
@@ -17,6 +19,17 @@ export function SettingField({ label, value, onChange, type = "text", options = 
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
+      ) : type === "folder" ? (
+        <div className="relative flex items-center">
+          <input
+            type="text"
+            className="w-full rounded-md border p-2 text-base"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="フォルダを選択"
+          />
+          <FaFolder className="mr-2 ml-4" size={25} />
+        </div>
       ) : (
         <select
           className="w-full rounded-md border p-2 text-base"

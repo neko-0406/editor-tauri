@@ -35,6 +35,7 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
             <SettingField
               label="ワークスペースパス"
               value={workspacePath}
+              type="folder"
               onChange={(value) => setSetting({ ...setting, workspacePath: value })}
             />
 
