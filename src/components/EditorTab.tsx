@@ -44,7 +44,7 @@ export function TabContainer() {
       <div className="flex h-[40px] w-full flex-row bg-gray-300">
         {tabDatalist
           ? tabDatalist.map((item) => (
-              <TabItemTag item={item} selectedTabId={selectedTabId} setSelectedTabId={setSelectedTabId} />
+              <TabItemTag key={item.id} item={item} selectedTabId={selectedTabId} setSelectedTabId={setSelectedTabId} />
             ))
           : null}
       </div>
@@ -83,7 +83,6 @@ export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTag
 
   return (
     <div
-      key={item.id}
       onClick={() => setSelectedTabId(item.id)}
       draggable={true}
       onDragStart={handleDragStart}
