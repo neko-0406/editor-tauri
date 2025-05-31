@@ -66,7 +66,6 @@ export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTag
   return (
     <div
       onClick={() => setSelectedTabId(item.id)}
-      draggable={true}
       className="mr-[1px] ml-[1px] cursor-pointer px-2"
       style={{
         backgroundColor: item.id === selectedTabId ? "white" : "#e5e7eb",
