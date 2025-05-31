@@ -1,5 +1,4 @@
-import { BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
-
+import { createSettingTable, executeSettingQuery } from "../../sql/sql";
 import { SettingField } from "./SettingField";
 import { useSetting } from "./SettingProvider";
 
@@ -68,12 +67,20 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
               </button>
               <button
                 className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                onClick={() => {
-                  const baseDir = BaseDirectory.AppData;
+                onClick={async () => {
+                  // const baseDir = BaseDirectory.AppData;
                   console.log(setting);
                   setSetting(setting);
                   console.log(setting);
-                  writeTextFile("setting.json", JSON.stringify(setting, null, 2), { baseDir: baseDir });
+                  // writeTextFile("setting.json", JSON.stringify(setting, null, 2), { baseDir: baseDir });
+                  await createSettingTable();
+                  await executeSettingQuery([setting])
+                    .then(() => {
+                      console.log("Setting saved successfully");
+                    })
+                    .catch((error) => {
+                      console.error("Error saving setting:", error);
+                    });
                   setIsDialogOpen(false);
                 }}
               >

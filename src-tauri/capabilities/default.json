@@ -23,6 +23,8 @@
           "path": "$APPDATA/*"
         }
       ]
-    }
+    },
+    "sql:default",
+    "sql:allow-execute"
   ]
 }
