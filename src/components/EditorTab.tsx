@@ -39,9 +39,9 @@ export function TabContainer() {
   }, [selectedTabId]);
 
   return (
-    <div className="w-full h-hull flex flex-col">
+    <div className="h-hull flex w-full flex-col">
       {/* タブ上部のタグ表示部分 */}
-      <div className="w-full h-[40px] flex flex-row bg-gray-300">
+      <div className="flex h-[40px] w-full flex-row bg-gray-300">
         {tabDatalist
           ? tabDatalist.map((item) => (
               <TabItemTag item={item} selectedTabId={selectedTabId} setSelectedTabId={setSelectedTabId} />
@@ -49,7 +49,7 @@ export function TabContainer() {
           : null}
       </div>
       {/* エディター部分 */}
-      <div className="w-full h-full top-40">
+      <div className="top-40 h-full w-full">
         {selectedTabId
           ? tabDatalist
             ? tabDatalist.find((item) => item.id === selectedTabId)?.editorComponent
@@ -88,7 +88,7 @@ export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTag
       draggable={true}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className="mr-[1px] ml-[1px] px-2 cursor-pointer"
+      className="mr-[1px] ml-[1px] cursor-pointer px-2"
       style={{
         backgroundColor: item.id === selectedTabId ? "white" : "#e5e7eb",
         opacity: isDragging ? "0.3" : "1.0",

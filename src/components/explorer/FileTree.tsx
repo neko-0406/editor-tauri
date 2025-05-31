@@ -41,7 +41,7 @@ function FolderItem({ fileItem, level }: TreeItemProps) {
             {fileItem.name}
           </button>
         </div>
-        <ul className="ml-2 pl-3 border-l ">
+        <ul className="ml-2 border-l pl-3">
           {isOpen &&
             [...(fileItem.branch || [])]
               .sort((a, b) => {
