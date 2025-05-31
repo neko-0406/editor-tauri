@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 
 export type TabItemData = {
@@ -12,7 +12,7 @@ export type TabContainerProps = {
 };
 
 // テストデータ
-const data: TabItemData[] = [
+const tabDatalist: TabItemData[] = [
   {
     id: "test-tab-tag1",
     name: "test-tab-tag1",
@@ -31,12 +31,8 @@ const data: TabItemData[] = [
 ];
 
 export function TabContainer() {
-  const [tabDatalist, setTabDatalist] = useState<TabItemData[] | null>(data);
+  // const [tabDatalist, _setTabDatalist] = useState<TabItemData[] | null>(data);
   const [selectedTabId, setSelectedTabId] = useState<string | null>(null);
-
-  useEffect(() => {
-    console.log(selectedTabId);
-  }, [selectedTabId]);
 
   return (
     <div className="h-hull flex w-full flex-col">
@@ -67,30 +63,13 @@ export type TabItemTagProps = {
 };
 
 export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTagProps) {
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [cursorPosition, setCursorPosition] = useState<string | null>(null);
-
-  const handleDragStart = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    event.dataTransfer.setData("text/plain", item.id);
-  }, []);
-
-  const handleDragEnd = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  useEffect(() => console.log(cursorPosition), []);
-
   return (
     <div
       onClick={() => setSelectedTabId(item.id)}
       draggable={true}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
       className="mr-[1px] ml-[1px] cursor-pointer px-2"
       style={{
         backgroundColor: item.id === selectedTabId ? "white" : "#e5e7eb",
-        opacity: isDragging ? "0.3" : "1.0",
       }}
     >
       {item.name}

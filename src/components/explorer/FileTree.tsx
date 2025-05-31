@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-
 import { FaRegFile, FaRegFolder, FaRegFolderOpen } from "react-icons/fa6";
 
 export interface FileObject {
