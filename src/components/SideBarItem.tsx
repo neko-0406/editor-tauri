@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
-import { Explorer } from "./explorer/Explorer";
 import { FaFolderTree } from "react-icons/fa6";
+
+import { Explorer } from "./explorer/Explorer";
 
 export type sideMenuItem = {
   id: string;
