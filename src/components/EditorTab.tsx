@@ -49,7 +49,7 @@ export function TabContainer() {
           : null}
       </div>
       {/* エディター部分 */}
-      <div className="w-full h-100 top-40">
+      <div className="w-full h-full top-40">
         {selectedTabId
           ? tabDatalist
             ? tabDatalist.find((item) => item.id === selectedTabId)?.editorComponent
@@ -68,6 +68,7 @@ export type TabItemTagProps = {
 
 export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTagProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [cursorPosition, setCursorPosition] = useState<string | null>(null);
 
   const handleDragStart = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     setIsDragging(true);
@@ -78,6 +79,8 @@ export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTag
     setIsDragging(false);
   }, []);
 
+  useEffect(() => console.log(cursorPosition), []);
+
   return (
     <div
       key={item.id}
@@ -85,12 +88,15 @@ export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTag
       draggable={true}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className="mr-[1px] ml-[1px] px-2 cursor-pointer bg-gray-200"
-      style={{ backgroundColor: item.id === selectedTabId ? "white" : "#f3f4f6", opacity: isDragging ? "0.5" : "1.0" }}
+      className="mr-[1px] ml-[1px] px-2 cursor-pointer"
+      style={{
+        backgroundColor: item.id === selectedTabId ? "white" : "#e5e7eb",
+        opacity: isDragging ? "0.3" : "1.0",
+      }}
     >
       {item.name}
       <button type="button">
-        <FaCircleXmark size={16} />{" "}
+        <FaCircleXmark size={16} />
       </button>
     </div>
   );
