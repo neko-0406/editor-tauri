@@ -11,9 +11,8 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { SelectionAlwaysOnDisplay } from "@lexical/react/LexicalSelectionAlwaysOnDisplay";
 import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-import { useEffect } from "react";
 
-import { checkDir, EditorOnChangePlugin, onChange } from "../../hooks/EditorOnChangePlugin";
+import { EditorOnChangePlugin, onChange } from "../../hooks/EditorOnChangePlugin";
 import theme from "./editorTheme";
 import nodes from "./nodes";
 
@@ -29,10 +28,6 @@ export default function Editor() {
     onError,
     nodes: nodes,
   };
-
-  useEffect(() => {
-    checkDir();
-  }, []);
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
