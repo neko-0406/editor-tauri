@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 
 export type TabItemData = {
@@ -12,7 +12,7 @@ export type TabContainerProps = {
 };
 
 // テストデータ
-const tabDatalist: TabItemData[] = [
+const data: TabItemData[] = [
   {
     id: "test-tab-tag1",
     name: "test-tab-tag1",
@@ -31,8 +31,12 @@ const tabDatalist: TabItemData[] = [
 ];
 
 export function TabContainer() {
-  // const [tabDatalist, _setTabDatalist] = useState<TabItemData[] | null>(data);
+  const [tabDatalist, setTabDatalist] = useState<TabItemData[]>(data);
   const [selectedTabId, setSelectedTabId] = useState<string | null>(null);
+
+  const handleSetTabDataList = useCallback((list: TabItemData[]) => {
+    setTabDatalist(list);
+  }, []);
 
   return (
     <div className="h-hull flex w-full flex-col">
@@ -40,7 +44,14 @@ export function TabContainer() {
       <div className="flex h-[40px] w-full flex-row bg-gray-300">
         {tabDatalist
           ? tabDatalist.map((item) => (
-              <TabItemTag key={item.id} item={item} selectedTabId={selectedTabId} setSelectedTabId={setSelectedTabId} />
+              <TabItemTag
+                key={item.id}
+                item={item}
+                itemlist={tabDatalist}
+                selectedTabId={selectedTabId}
+                setSelectedTabId={setSelectedTabId}
+                setTabDatalist={handleSetTabDataList}
+              />
             ))
           : null}
       </div>
@@ -58,21 +69,27 @@ export function TabContainer() {
 
 export type TabItemTagProps = {
   item: TabItemData;
+  itemlist: TabItemData[];
   selectedTabId: string | null;
   setSelectedTabId: (id: string) => void;
+  setTabDatalist: (list: TabItemData[]) => void;
 };
 
-export function TabItemTag({ item, selectedTabId, setSelectedTabId }: TabItemTagProps) {
+export function TabItemTag({ item, itemlist, selectedTabId, setSelectedTabId, setTabDatalist }: TabItemTagProps) {
+  const handleClickDelete = useCallback(() => {
+    setTabDatalist(itemlist.filter((data) => data.id !== item.id));
+  }, [item.id, itemlist, setTabDatalist]);
+
   return (
     <div
       onClick={() => setSelectedTabId(item.id)}
-      className="mr-[1px] ml-[1px] cursor-pointer px-2"
+      className="mr-[1px] ml-[1px] flex cursor-pointer items-center justify-center px-2"
       style={{
         backgroundColor: item.id === selectedTabId ? "white" : "#e5e7eb",
       }}
     >
       {item.name}
-      <button type="button">
+      <button type="button" onClick={handleClickDelete} className="ml-2">
         <FaCircleXmark size={16} />
       </button>
     </div>
