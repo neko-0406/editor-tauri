@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect, Dispatch, SetStateAction, ReactNode } from "react";
 import { BaseDirectory, readTextFile } from "@tauri-apps/plugin-fs";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 
 export type SettingType = {
   theme: string;
@@ -8,6 +8,7 @@ export type SettingType = {
     clientId: string;
     clientSecret: string;
   };
+  geminiApiKey: string;
 };
 
 const defaultSetting: SettingType = {
@@ -17,6 +18,7 @@ const defaultSetting: SettingType = {
     clientId: "",
     clientSecret: "",
   },
+  geminiApiKey: "",
 };
 
 const SettingContext = createContext<{
