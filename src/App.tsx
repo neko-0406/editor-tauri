@@ -3,12 +3,12 @@ import "./App.css";
 import { useCallback, useState } from "react";
 import { FaGear } from "react-icons/fa6";
 
+import { TabContainer } from "./components/EditorTab";
 import { Setting } from "./components/setting/Setting";
 import { SettingProvider } from "./components/setting/SettingProvider";
 import { sideBarItems } from "./components/SideBarItem";
 import { useDialogDisplay } from "./hooks/useDialogDisplay";
 import { useSplitter } from "./hooks/useSplitter";
-import { TabContainer } from "./components/EditorTab";
 
 function App() {
   const { explorerWidth, handleExplorerMouseDown, handleDraggable } = useSplitter();
@@ -56,7 +56,9 @@ function App() {
           />
         </div>
         {/* エディター（タブ） */}
-        <div className="h-full flex-1 border-l-1"></div>
+        <div className="h-full flex-1 border-l-1">
+          <TabContainer />
+        </div>
       </div>
     </SettingProvider>
   );
