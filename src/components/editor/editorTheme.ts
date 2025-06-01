@@ -6,9 +6,9 @@
  *
  */
 
-import type { EditorThemeClasses } from "lexical";
+import "../../App.css";
 
-import "../../styles/editorTheme.css";
+import type { EditorThemeClasses } from "lexical";
 
 const theme: EditorThemeClasses = {
   autocomplete: "EditorTheme__autocomplete",

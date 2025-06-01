@@ -1,6 +1,8 @@
 import { ReactNode, useCallback, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 
+import Editor from "./editor/Editor";
+
 export type TabItemData = {
   id: string;
   name: string;
@@ -16,17 +18,17 @@ const data: TabItemData[] = [
   {
     id: "test-tab-tag1",
     name: "test-tab-tag1",
-    editorComponent: <div>editor component1</div>,
+    editorComponent: <Editor />,
   },
   {
     id: "test-tab-tag2",
     name: "test-tab-tag2",
-    editorComponent: <div>editor component2</div>,
+    editorComponent: <Editor />,
   },
   {
     id: "test-tab-tag3",
     name: "test-tab-tag3",
-    editorComponent: <div>editor component3</div>,
+    editorComponent: <Editor />,
   },
 ];
 
