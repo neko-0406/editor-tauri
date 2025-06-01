@@ -21,5 +21,5 @@
   "rust-analyzer.checkOnSave": true,
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.check.extraArgs": ["--", "-A", "clippy::needless_return"],
-  "cSpell.words": ["atrule", "itemlist", "Klass", "pygments", "Resizer", "Xmark"]
+  "cSpell.words": ["atrule", "Consolas", "itemlist", "Klass", "Menlo", "pygments", "Resizer", "tauri", "Xmark"]
 }
