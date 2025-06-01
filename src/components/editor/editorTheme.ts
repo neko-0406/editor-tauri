@@ -86,7 +86,7 @@ const theme: EditorThemeClasses = {
   ltr: "text-left",
   mark: "bg-yellow-200",
   markOverlap: "bg-orange-200",
-  paragraph: "mb-4 text-base text-gray-900",
+  paragraph: "text-base text-gray-900",
   quote: "border-l-4 border-gray-300 pl-4 italic text-gray-600 my-4",
   rtl: "text-right",
   specialText: "text-indigo-700 font-semibold",
