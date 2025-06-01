@@ -1,9 +1,13 @@
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
+import { CharacterLimitPlugin } from "@lexical/react/LexicalCharacterLimitPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
+import { HashtagPlugin } from "@lexical/react/LexicalHashtagPlugin";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
+import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
@@ -45,11 +49,15 @@ export default function Editor() {
       <AutoFocusPlugin />
       <LinkPlugin />
       <ListPlugin />
+      <HorizontalRulePlugin />
       <CheckListPlugin />
-      <TablePlugin />
+      <TablePlugin hasCellMerge={true} hasCellBackgroundColor={true} hasHorizontalScroll={true} />
       <TabIndentationPlugin maxIndent={10} />
       <MarkdownShortcutPlugin />
       <SelectionAlwaysOnDisplay />
+      <ClickableLinkPlugin />
+      <CharacterLimitPlugin charset="UTF-8" maxLength={Number.MAX_SAFE_INTEGER} />
+      <HashtagPlugin />
       <EditorOnChangePlugin onChange={onChange} />
     </LexicalComposer>
   );
