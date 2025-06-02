@@ -2,7 +2,7 @@ import { EditorState } from "lexical";
 import { ReactNode, useCallback, useId, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 
-import Editor from "./editor/Editor";
+import Editor from "../editor/Editor";
 
 export type TabItemData = {
   id: string;
