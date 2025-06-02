@@ -1,3 +1,4 @@
+import { EditorState } from "lexical";
 import { ReactNode, useCallback, useId, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 
@@ -6,7 +7,7 @@ import Editor from "./editor/Editor";
 export type TabItemData = {
   id: string;
   name: string;
-  editorComponent: React.ReactNode;
+  editorState: EditorState | null;
 };
 
 export type TabContainerProps = {
@@ -18,17 +19,17 @@ const data: TabItemData[] = [
   {
     id: "test-tab-tag1",
     name: "test-tab-tag1",
-    editorComponent: <Editor key={"a"} />,
+    editorState: null,
   },
   {
     id: "test-tab-tag2",
     name: "test-tab-tag2",
-    editorComponent: <Editor key={"b"} />,
+    editorState: null,
   },
   {
     id: "test-tab-tag3",
     name: "test-tab-tag3",
-    editorComponent: <Editor key={"c"} />,
+    editorState: null,
   },
 ];
 
@@ -59,11 +60,11 @@ export function TabContainer() {
       </div>
       {/* エディター部分 */}
       <div className="top-40 h-full w-full">
-        {selectedTabId
-          ? tabDatalist
-            ? tabDatalist.find((item) => item.id === selectedTabId)?.editorComponent
-            : null
-          : null}
+        {selectedTabId ? (
+          tabDatalist ? (
+            <Editor editorState={tabDatalist.find((item) => item.id === selectedTabId)?.editorState} />
+          ) : null
+        ) : null}
       </div>
     </div>
   );
