@@ -15,22 +15,28 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { SelectionAlwaysOnDisplay } from "@lexical/react/LexicalSelectionAlwaysOnDisplay";
 import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
+import { EditorState } from "lexical";
 
-import { EditorOnChangePlugin, onChange } from "../../hooks/EditorOnChangePlugin";
 import theme from "./editorTheme";
 import nodes from "./nodes";
+import { EditorOnChangePlugin } from "./plugin/EditorOnChangePlugin";
+
+type EditorProps = {
+  editorState: EditorState | null | undefined;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function onError(error: any) {
   console.error(error);
 }
 
-export default function Editor() {
+export default function Editor({ editorState }: EditorProps) {
   const initialConfig = {
     namespace: "tauri-editor",
     theme,
     onError,
     nodes: nodes,
+    editorState: editorState ? editorState : undefined,
   };
 
   return (
@@ -58,7 +64,7 @@ export default function Editor() {
       <ClickableLinkPlugin />
       <CharacterLimitPlugin charset="UTF-8" maxLength={Number.MAX_SAFE_INTEGER} />
       <HashtagPlugin />
-      <EditorOnChangePlugin onChange={onChange} />
+      <EditorOnChangePlugin />
     </LexicalComposer>
   );
 }
