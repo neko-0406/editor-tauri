@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaGear } from "react-icons/fa6";
 
 import { TabContainer } from "./components/EditorTab";

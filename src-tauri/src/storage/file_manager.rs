@@ -1,4 +1,4 @@
-use std::{ path::{Path}};
+use std::{ env::current_dir, path::Path};
 
 use serde::Serialize;
 
@@ -19,7 +19,7 @@ impl FileItem {
             name: file_name,
             is_dir: path.is_dir(),
             path: file_abs_path,
-            branch: branch
+            branch
         };
     }
 
@@ -68,4 +68,19 @@ pub fn walk_tree(root_path: &Path) -> Option<FileItem> {
     }
 
     Some(item)
+}
+
+#[tauri::command]
+pub fn get_current_exe_dir() -> Option<String> {
+    let dir_path = current_dir();
+    match dir_path {
+        Ok(dir) => {
+            let dir_path = dir.to_string_lossy().to_string();
+            return Some(dir_path);
+        }
+        Err(error) => {
+            print!("{}", error);
+            return None;
+        }
+    }
 }
