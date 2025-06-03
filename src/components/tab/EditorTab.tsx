@@ -95,6 +95,7 @@ export type TabItemTagProps = {
 export function TabItemTag({ item, itemlist, selectedTabId, setSelectedTabId, setTabDatalist }: TabItemTagProps) {
   const handleClickDelete = useCallback(() => {
     setTabDatalist(itemlist.filter((data) => data.id !== item.id));
+    
   }, [item.id, itemlist, setTabDatalist]);
 
   return (
