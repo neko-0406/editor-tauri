@@ -41,14 +41,8 @@ export function TabContainer() {
     setTabDatalist(list);
   }, []);
 
-  const handleEditorStateChangeLintener = useCallback((editorId: string, editorState: EditorState) => {
-    setTabDatalist(prevList => 
-      prevList.map(data => 
-        data.id === editorId 
-          ? { ...data, editorState } 
-          : data
-      )
-    );
+  const handleEditorStateChangeListener = useCallback((editorId: string, editorState: EditorState) => {
+    setTabDatalist((prevList) => prevList.map((data) => (data.id === editorId ? { ...data, editorState } : data)));
   }, []);
 
   return (
@@ -75,7 +69,9 @@ export function TabContainer() {
             <Editor
               key={selectedTabId}
               editorState={tabDatalist.find((item) => item.id === selectedTabId)?.editorState}
-              onEditorStateChange={(editorState: EditorState) => handleEditorStateChangeLintener(selectedTabId, editorState) }
+              onEditorStateChange={(editorState: EditorState) =>
+                handleEditorStateChangeListener(selectedTabId, editorState)
+              }
             />
           ) : null
         ) : null}
@@ -95,7 +91,6 @@ export type TabItemTagProps = {
 export function TabItemTag({ item, itemlist, selectedTabId, setSelectedTabId, setTabDatalist }: TabItemTagProps) {
   const handleClickDelete = useCallback(() => {
     setTabDatalist(itemlist.filter((data) => data.id !== item.id));
-    
   }, [item.id, itemlist, setTabDatalist]);
 
   return (
