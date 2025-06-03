@@ -56,7 +56,9 @@ function App() {
           />
         </div>
         {/* エディター（タブ） */}
-        <div className="h-full flex-1 border-l-1"></div>
+        <div className="h-full flex-1 border-l-1">
+          <TabContainer />
+        </div>
       </div>
     </SettingProvider>
   );

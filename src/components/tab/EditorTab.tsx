@@ -1,5 +1,5 @@
 import { EditorState } from "lexical";
-import { ReactNode, useCallback, useId, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 
 import Editor from "../editor/Editor";
@@ -41,6 +41,16 @@ export function TabContainer() {
     setTabDatalist(list);
   }, []);
 
+  const handleEditorStateChangeLintener = useCallback((editorId: string, editorState: EditorState) => {
+    setTabDatalist(prevList => 
+      prevList.map(data => 
+        data.id === editorId 
+          ? { ...data, editorState } 
+          : data
+      )
+    );
+  }, []);
+
   return (
     <div className="h-hull flex w-full flex-col">
       {/* タブ上部のタグ表示部分 */}
@@ -62,7 +72,11 @@ export function TabContainer() {
       <div className="top-40 h-full w-full">
         {selectedTabId ? (
           tabDatalist ? (
-            <Editor editorState={tabDatalist.find((item) => item.id === selectedTabId)?.editorState} />
+            <Editor
+              key={selectedTabId}
+              editorState={tabDatalist.find((item) => item.id === selectedTabId)?.editorState}
+              onEditorStateChange={(editorState: EditorState) => handleEditorStateChangeLintener(selectedTabId, editorState) }
+            />
           ) : null
         ) : null}
       </div>

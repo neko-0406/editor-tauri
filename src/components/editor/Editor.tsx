@@ -23,6 +23,7 @@ import { EditorOnChangePlugin } from "./plugin/EditorOnChangePlugin";
 
 type EditorProps = {
   editorState: EditorState | null | undefined;
+  onEditorStateChange: (editorState: EditorState) => void;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,7 +31,7 @@ function onError(error: any) {
   console.error(error);
 }
 
-export default function Editor({ editorState }: EditorProps) {
+export default function Editor({ editorState, onEditorStateChange }: EditorProps) {
   const initialConfig = {
     namespace: "tauri-editor",
     theme,
@@ -64,7 +65,7 @@ export default function Editor({ editorState }: EditorProps) {
       <ClickableLinkPlugin />
       <CharacterLimitPlugin charset="UTF-8" maxLength={Number.MAX_SAFE_INTEGER} />
       <HashtagPlugin />
-      <EditorOnChangePlugin />
+      <EditorOnChangePlugin onEditorStateChange={onEditorStateChange} />
     </LexicalComposer>
   );
 }
