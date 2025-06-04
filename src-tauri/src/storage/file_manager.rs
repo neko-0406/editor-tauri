@@ -33,10 +33,7 @@ impl FileItem {
     }
 
     fn get_file_path(path: &Path) -> String {
-        let file_path = match path.canonicalize() {
-            Ok(abs_path) => Some(abs_path),
-            Err(_) => None,
-        };
+        let file_path = path.canonicalize().ok();
 
         match file_path {
             Some(abs_path) => {
