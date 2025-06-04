@@ -8,10 +8,15 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "format": "prettier --write src"
+    "format": "prettier --write src",
+    "fix": "npx eslint --fix src/"
   },
   "dependencies": {
+    "@lexical/link": "^0.31.2",
+    "@lexical/list": "^0.31.2",
+    "@lexical/markdown": "^0.31.2",
     "@lexical/react": "^0.31.2",
+    "@lexical/table": "^0.31.2",
     "@tailwindcss/vite": "^4.1.7",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-fs": "^2.3.0",

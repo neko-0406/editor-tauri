@@ -1,10 +1,13 @@
+import { EditorState } from "lexical";
 import { ReactNode, useCallback, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
+
+import Editor from "../editor/Editor";
 
 export type TabItemData = {
   id: string;
   name: string;
-  editorComponent: React.ReactNode;
+  editorState: EditorState | null;
 };
 
 export type TabContainerProps = {
@@ -16,17 +19,17 @@ const data: TabItemData[] = [
   {
     id: "test-tab-tag1",
     name: "test-tab-tag1",
-    editorComponent: <div>editor component1</div>,
+    editorState: null,
   },
   {
     id: "test-tab-tag2",
     name: "test-tab-tag2",
-    editorComponent: <div>editor component2</div>,
+    editorState: null,
   },
   {
     id: "test-tab-tag3",
     name: "test-tab-tag3",
-    editorComponent: <div>editor component3</div>,
+    editorState: null,
   },
 ];
 
@@ -36,6 +39,10 @@ export function TabContainer() {
 
   const handleSetTabDataList = useCallback((list: TabItemData[]) => {
     setTabDatalist(list);
+  }, []);
+
+  const handleEditorStateChangeListener = useCallback((editorId: string, editorState: EditorState) => {
+    setTabDatalist((prevList) => prevList.map((data) => (data.id === editorId ? { ...data, editorState } : data)));
   }, []);
 
   return (
@@ -57,11 +64,17 @@ export function TabContainer() {
       </div>
       {/* エディター部分 */}
       <div className="top-40 h-full w-full">
-        {selectedTabId
-          ? tabDatalist
-            ? tabDatalist.find((item) => item.id === selectedTabId)?.editorComponent
-            : null
-          : null}
+        {selectedTabId ? (
+          tabDatalist ? (
+            <Editor
+              key={selectedTabId}
+              editorState={tabDatalist.find((item) => item.id === selectedTabId)?.editorState}
+              onEditorStateChange={(editorState: EditorState) =>
+                handleEditorStateChangeListener(selectedTabId, editorState)
+              }
+            />
+          ) : null
+        ) : null}
       </div>
     </div>
   );

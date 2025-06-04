@@ -3,10 +3,10 @@ import "./App.css";
 import { useCallback, useEffect, useState } from "react";
 import { FaGear } from "react-icons/fa6";
 
-import { TabContainer } from "./components/EditorTab";
 import { Setting } from "./components/setting/Setting";
 import { SettingProvider } from "./components/setting/SettingProvider";
 import { sideBarItems } from "./components/SideBarItem";
+import { TabContainer } from "./components/tab/EditorTab";
 import { useDialogDisplay } from "./hooks/useDialogDisplay";
 import { useSplitter } from "./hooks/useSplitter";
 
