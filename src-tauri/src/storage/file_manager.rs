@@ -33,10 +33,7 @@ impl FileItem {
     }
 
     fn get_file_path(path: &Path) -> String {
-        let file_path = match path.canonicalize() {
-            Ok(abs_path) => Some(abs_path),
-            Err(_) => None,
-        };
+        let file_path = path.canonicalize().ok();
 
         match file_path {
             Some(abs_path) => {
@@ -75,8 +72,8 @@ pub fn get_current_exe_dir() -> Option<String> {
     let dir_path = current_dir();
     match dir_path {
         Ok(dir) => {
-            let dir_path = dir.to_string_lossy().to_string();
-            return Some(dir_path);
+            let parent_path = dir.parent();
+            parent_path.map(|dir| dir.to_string_lossy().to_string())
         }
         Err(error) => {
             print!("{}", error);
