@@ -4,7 +4,7 @@ import Database from "@tauri-apps/plugin-sql";
 
 import { defaultSetting, SettingType } from "../components/setting/SettingProvider";
 
-class AppConfigDB {
+class AppConfigSql {
   private dataBasePath: string | null = null;
   private dataBase: Database | null = null;
 
@@ -27,7 +27,6 @@ class AppConfigDB {
 
   // テーブルの定義と初期化
   private async createSettingTable() {
-
     const createQuery = `
       create table if not exists setting (
         key text primary key,
@@ -43,12 +42,35 @@ class AppConfigDB {
       return;
     }
 
-    const insertQuery = "insert into setting (key, value, type) values ($1, $2, $3)";
-
-    if (this.dataBase) {
+    // テーブルの行数を取得
+    const tableRow = await this.getSettingTableRow();
+    // テーブルの行数が0ならデフォルト設定をinsert
+    if (tableRow === 0 && this.dataBase) {
+      const insertQuery = "insert into setting (key, value, type) values ($1, $2, $3)";
       for (const [key, value] of Object.entries(defaultSetting)) {
-        await this.dataBase.execute(insertQuery, [key, value, "string"])
+        await this.dataBase.execute(insertQuery, [key, value, "string"]);
       }
     }
   }
+
+  // setting tableの行数を取得
+  async getSettingTableRow(): Promise<number> {
+    if (this.dataBase) {
+      const result = await this.dataBase.select<number>("select count(*) as count from setting");
+      return result;
+    } else {
+      console.log("database is not fined..");
+    }
+    return 0;
+  }
+
+  async getAllSettings(): Promise<void> {
+    const result = await this.dataBase?.select("select * from setting");
+    console.log(result);
+  }
 }
+
+// グローバルに公開
+// import { appSql } from ...sql.ts
+const appSql = new AppConfigSql();
+export { appSql };

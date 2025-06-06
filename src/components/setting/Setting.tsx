@@ -1,4 +1,4 @@
-import { createSettingTable, executeSettingQuery } from "../../sql/sql";
+// import { createSettingTable, executeSettingQuery } from "../../sql/sql";
 import { SettingField } from "./SettingField";
 import { useSetting } from "./SettingProvider";
 
@@ -73,15 +73,15 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
                   setSetting(setting);
                   console.log(setting);
                   // writeTextFile("setting.json", JSON.stringify(setting, null, 2), { baseDir: baseDir });
-                  await createSettingTable();
-                  await executeSettingQuery([setting])
-                    .then(() => {
-                      console.log("Setting saved successfully");
-                    })
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    .catch((error: any) => {
-                      console.error("Error saving setting:", error);
-                    });
+                  // await createSettingTable();
+                  // await executeSettingQuery([setting])
+                  //   .then(() => {
+                  //     console.log("Setting saved successfully");
+                  //   })
+                  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  //   .catch((error: any) => {
+                  //     console.error("Error saving setting:", error);
+                  //   });
                   setIsDialogOpen(false);
                 }}
               >

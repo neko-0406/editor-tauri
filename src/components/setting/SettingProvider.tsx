@@ -1,5 +1,6 @@
-import { BaseDirectory, readTextFile } from "@tauri-apps/plugin-fs";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+
+import { appSql } from "../../sql/sql";
 
 export type SettingType = {
   theme: string;
@@ -31,6 +32,7 @@ export function SettingProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const loadSetting = async () => {
       try {
+        appSql.getAllSettings();
         const baseDir = BaseDirectory.AppData;
         const content = await readTextFile("setting.json", { baseDir: baseDir });
         const json = JSON.parse(content);
