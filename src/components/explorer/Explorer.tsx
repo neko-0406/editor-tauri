@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { useSetting } from "../setting/SettingProvider";
 import { invoke } from "@tauri-apps/api/core";
+import { useEffect, useState } from "react";
+
+import { useSetting } from "../setting/SettingProvider";
 import Tree, { FileObject } from "./FileTree";
 
 export function Explorer() {

@@ -37,6 +37,7 @@ export default [
       ...reactPlugin.configs.recommended.rules,
       ...typescriptPlugin.configs.recommended.rules,
       ...prettierPlugin.configs.recommended.rules,
+      "@typescript-eslint/no-unused-vars": "off",
 
       "prettier/prettier": ["error", { endOfLine: "auto" }],
       "react/react-in-jsx-scope": "off",
