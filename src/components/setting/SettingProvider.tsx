@@ -4,20 +4,16 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffe
 export type SettingType = {
   theme: string;
   workspacePath: string;
-  googleAuth: {
-    clientId: string;
-    clientSecret: string;
-  };
+  googleAuthId: string;
+  googleAuthSecret: string;
   geminiApiKey: string;
 };
 
-const defaultSetting: SettingType = {
+export const defaultSetting: SettingType = {
   theme: "light",
   workspacePath: "",
-  googleAuth: {
-    clientId: "",
-    clientSecret: "",
-  },
+  googleAuthId: "",
+  googleAuthSecret: "",
   geminiApiKey: "",
 };
 

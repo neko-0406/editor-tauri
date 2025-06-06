@@ -9,7 +9,7 @@ type SettingProps = {
 
 export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
   const { setting, setSetting } = useSetting();
-  const { theme, workspacePath, googleAuth, geminiApiKey } = setting;
+  const { theme, workspacePath, googleAuthId, googleAuthSecret, geminiApiKey } = setting;
   const themeOptions = [
     { value: "system", label: "システム" },
     { value: "light", label: "ライト" },
@@ -40,14 +40,14 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
 
             <SettingField
               label="Google Auth ClientID"
-              value={googleAuth.clientId}
-              onChange={(value) => setSetting({ ...setting, googleAuth: { ...googleAuth, clientId: value } })}
+              value={googleAuthId}
+              onChange={(value) => setSetting({ ...setting, googleAuthId: value })}
             />
 
             <SettingField
               label="Google Auth ClientSecret"
-              value={googleAuth.clientSecret}
-              onChange={(value) => setSetting({ ...setting, googleAuth: { ...googleAuth, clientSecret: value } })}
+              value={googleAuthSecret}
+              onChange={(value) => setSetting({ ...setting, googleAuthSecret: value })}
             />
 
             <SettingField
@@ -78,7 +78,8 @@ export function Setting({ isDialogOpen, setIsDialogOpen }: SettingProps) {
                     .then(() => {
                       console.log("Setting saved successfully");
                     })
-                    .catch((error) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    .catch((error: any) => {
                       console.error("Error saving setting:", error);
                     });
                   setIsDialogOpen(false);
