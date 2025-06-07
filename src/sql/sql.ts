@@ -8,16 +8,19 @@ class AppConfigSql {
   private dataBasePath: string | null = null;
   private dataBase: Database | null = null;
 
+  static readonly settingDBName: string = "setting.db";
+
   // コンストラクタ
   constructor() {
-    // 即時実行関数で初期化
-    (async () => {
-      const exefileDir = await this.getExeFileDir();
-      this.dataBasePath = await path.join(exefileDir, "setting.db");
-      this.dataBase = await Database.load("sqlite:" + this.dataBasePath);
-    })();
+    this.init();
+  }
 
-    this.createSettingTable();
+  // インスタンス初期化関数
+  private async init(): Promise<void> {
+    const exefileDir = await this.getExeFileDir();
+    this.dataBasePath = await path.join(exefileDir, AppConfigSql.settingDBName);
+    this.dataBase = await Database.load("sqlite:" + this.dataBasePath);
+    await this.createSettingTable();
   }
 
   // 実行ファイルのあるdir取得
@@ -35,6 +38,7 @@ class AppConfigSql {
       )
     `;
 
+    // databaseがnull or undefinedじゃないとき
     if (this.dataBase) {
       await this.dataBase.execute(createQuery);
     } else {
@@ -45,8 +49,10 @@ class AppConfigSql {
     // テーブルの行数を取得
     const tableRow = await this.getSettingTableRow();
     // テーブルの行数が0ならデフォルト設定をinsert
-    if (tableRow === 0 && this.dataBase) {
-      const insertQuery = "insert into setting (key, value, type) values ($1, $2, $3)";
+    console.log("table row:", tableRow);
+    if (tableRow === 0) {
+      // const insertQuery = "insert into setting (key, value, type) values ($1, $2, $3)";
+      const insertQuery = `insert into ${AppConfigSql.settingDBName} (key, value, type) values ($1, $2, $3)`;
       for (const [key, value] of Object.entries(defaultSetting)) {
         await this.dataBase.execute(insertQuery, [key, value, "string"]);
       }
@@ -54,18 +60,22 @@ class AppConfigSql {
   }
 
   // setting tableの行数を取得
+  // return [{count: x}]
   async getSettingTableRow(): Promise<number> {
     if (this.dataBase) {
-      const result = await this.dataBase.select<number>("select count(*) as count from setting");
-      return result;
+      const result = await this.dataBase.select<{ count: number }[]>(
+        `select count(*) as count from ${AppConfigSql.settingDBName}`,
+      );
+      return result[0].count;
     } else {
       console.log("database is not fined..");
     }
     return 0;
   }
 
+  // 全てのkey, valueを取得
   async getAllSettings(): Promise<void> {
-    const result = await this.dataBase?.select("select * from setting");
+    const result = await this.dataBase?.select(`select * from ${AppConfigSql.settingDBName}`);
     console.log(result);
   }
 }
